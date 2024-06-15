@@ -23,6 +23,6 @@ jobs:
         run: fluentci run cloudflare_pipeline pages-deploy
         env:
           CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: fe5b1e2ce9f94f4c0415ab94ce402012
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           PROJECT_NAME: fluentci
           DIRECTORY: dist
