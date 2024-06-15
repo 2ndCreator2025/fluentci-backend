@@ -1,4 +1,4 @@
-name: Deploy to Cloudflare Pages
+name: Deploy to Cloudflare Workers
 
 on:
   push:
@@ -6,45 +6,23 @@ on:
       - main
 
 jobs:
-  publish:
+  deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      deployments: write
+    strategy:
+      matrix:
+        workers: [worker1, worker2] # Adjust based on your workers setup
+
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
-
-      - name: Install Nix
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y nix
-          nix --version
-
-      - name: Clone repository and setup environment
-        run: |
-          git clone https://github.com/fluentci-io/fluentci-engine.git
-          cd fluentci-engine
-          nix develop
-
-      - name: Start FluentCI Engine
-        run: |
-          cd fluentci-engine
-          cargo build -p fluentci-engine
+        uses: actions/checkout@v2
 
       - name: Setup Fluent CI
         uses: fluentci-io/setup-fluentci@v5
-        with:
-          wasm: true  # Enable WebAssembly plugins if needed
-          pipeline: rust  # Example pipeline setup if applicable
 
       - name: Deploy to Cloudflare Workers
-        run: |
-          cd fluentci-engine
-          fluentci run --wasm cloudflare deploy
+        run: fluentci run --wasm cloudflare deploy
+        working-directory: ./workers/${{ matrix.workers }}
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
-
 
