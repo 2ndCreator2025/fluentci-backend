@@ -1,6 +1,5 @@
-import { createGQLClient } from "./client.js";
-import { Context } from "./context.js";
-import { env } from "../deps.js";
+import { createGQLClient } from "./client.ts";
+import { Context } from "./context.ts";
 
 /**
  * @hidden
@@ -11,9 +10,9 @@ export function initDefaultContext(): Context {
   let ctx = new Context();
 
   // Prefer DAGGER_SESSION_PORT if set
-  const daggerSessionPort = env.get("DAGGER_SESSION_PORT");
+  const daggerSessionPort = Deno.env.get("DAGGER_SESSION_PORT");
   if (daggerSessionPort) {
-    const sessionToken = env.get("DAGGER_SESSION_TOKEN");
+    const sessionToken = Deno.env.get("DAGGER_SESSION_TOKEN");
     if (!sessionToken) {
       throw new Error(
         "DAGGER_SESSION_TOKEN must be set when using DAGGER_SESSION_PORT"

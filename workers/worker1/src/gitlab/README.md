@@ -1,14 +1,12 @@
 # Gitlab CI
 
-[![fluentci pipeline](https://img.shields.io/badge/dynamic/json?label=pkg.fluentci.io&labelColor=%23000&color=%23460cf1&url=https%3A%2F%2Fapi.fluentci.io%2Fv1%2Fpipeline%2Fcloudflare_pipeline&query=%24.version)](https://pkg.fluentci.io/cloudflare_pipeline)
-[![deno module](https://shield.deno.dev/x/cloudflare_pipeline)](https://deno.land/x/cloudflare_pipeline)
+[![fluentci pipeline](https://img.shields.io/badge/dynamic/json?label=pkg.fluentci.io&labelColor=%23000&color=%23460cf1&url=https%3A%2F%2Fapi.fluentci.io%2Fv1%2Fpipeline%2Fbase_pipeline&query=%24.version)](https://pkg.fluentci.io/base_pipeline)
 ![deno compatibility](https://shield.deno.dev/deno/^1.34)
-[![](https://img.shields.io/codecov/c/gh/fluent-ci-templates/cloudflare-pipeline)](https://codecov.io/gh/fluent-ci-templates/cloudflare-pipeline)
 
 The following command will generate a `.gitlab-ci.yml` file in your project:
 
 ```bash
-fluentci gl init -t cloudflare_pipeline
+fluentci gl init
 ```
 
 Generated file:
@@ -37,11 +35,10 @@ Generated file:
     - mv bin/dagger /usr/local/bin
     - dagger version
 
-deploy:
+base:
   extends: .dagger
   script:
-    - fluentci run cloudflare_pipeline
-
+    - fluentci run .
 
 ```
 

@@ -1,1 +1,1 @@
-export * from "./src/dagger/index.js";
+export * from "./src/dagger/index.ts";

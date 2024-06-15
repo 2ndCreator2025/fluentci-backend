@@ -1,29 +1,22 @@
-import * as jobs from "./jobs.js";
-import { env } from "../../deps.js";
+import * as jobs from "./jobs.ts";
 
-const { deploy, runnableJobs } = jobs;
+const { hello, runnableJobs } = jobs;
 
-export default async function pipeline(src = ".", args: string[] = []) {
+export default async function pipeline(_src = ".", args: string[] = []) {
   if (args.length > 0) {
-    await runSpecificJobs(src, args as jobs.Job[]);
+    await runSpecificJobs(args as jobs.Job[]);
     return;
   }
 
-  await deploy(src, env.get("CF_API_TOKEN")!, env.get("CF_ACCOUNT_ID")!);
+  await hello();
 }
 
-async function runSpecificJobs(src: string, args: jobs.Job[]) {
+async function runSpecificJobs(args: jobs.Job[]) {
   for (const name of args) {
     const job = runnableJobs[name];
     if (!job) {
       throw new Error(`Job ${name} not found`);
     }
-    await job(
-      src,
-      env.get("CF_API_TOKEN")!,
-      env.get("CF_ACCOUNT_ID")!,
-      env.get("PROJECT_NAME") || "",
-      env.get("DIRECTORY") || "."
-    );
+    await job();
   }
 }

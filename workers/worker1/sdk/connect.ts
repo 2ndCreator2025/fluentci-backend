@@ -1,6 +1,6 @@
 import { Writable } from "node:stream";
-import { Client } from "./client.gen.js";
-import { Context } from "./context.js";
+import { Client } from "./client.gen.ts";
+import { Context } from "./context.ts";
 
 /**
  * ConnectOpts defines option used to connect to an engine.

@@ -8,9 +8,9 @@ import {
   UnknownDaggerError,
   NotAwaitedRequestError,
   ExecError,
-} from "../deps.js";
+} from "../deps.ts";
 
-import { Metadata, QueryTree } from "./client.gen.js";
+import { Metadata, QueryTree } from "./client.gen.ts";
 
 /**
  * Format argument into GraphQL query format.

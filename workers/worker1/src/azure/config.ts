@@ -10,7 +10,7 @@ export function generateYaml(): AzurePipeline {
 `;
 
   const setupDagger = `\
-  curl -L https://dl.dagger.io/dagger/install.sh | DAGGER_VERSION=0.9.3 sh
+  curl -L https://dl.dagger.io/dagger/install.sh | DAGGER_VERSION=0.9.7 sh
   sudo mv bin/dagger /usr/local/bin
   dagger version
 `;
@@ -20,10 +20,6 @@ export function generateYaml(): AzurePipeline {
     .pool({
       name: "Default",
       vmImage: "ubuntu-latest",
-    })
-    .variables({
-      CF_API_TOKEN: "$(CF_API_TOKEN)",
-      CF_ACCOUNT_ID: "$(CF_ACCOUNT_ID)",
     })
     .step({
       script: installDeno,
@@ -38,7 +34,7 @@ export function generateYaml(): AzurePipeline {
       displayName: "Setup Dagger",
     })
     .step({
-      script: "fluentci run cloudflare_pipeline",
+      script: "fluentci run .",
       displayName: "Run Dagger Pipelines",
     });
   return azurePipeline;

@@ -1,6 +1,6 @@
-import { GraphQLClient } from "../deps.js";
+import { GraphQLClient } from "../deps.ts";
 
-import { initDefaultContext } from "./builder.js";
+import { initDefaultContext } from "./builder.ts";
 
 interface ContextConfig {
   client?: GraphQLClient;

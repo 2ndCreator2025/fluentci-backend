@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        workers: [worker1, worker2] # Adjust based on your workers setup
+        workers: [worker1] # Adjust based on your workers setup
 
     steps:
       - name: Checkout Repository
